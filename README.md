@@ -1,4 +1,4 @@
-# Student ID Card Maker | طلبہ کارڈ ساز
+# Student ID Card Maker | آںٔی ڈی کارڈ (pro)
 
 A free, single-page web app that makes printable Urdu student ID cards (front and back) in the browser.
 No login, no server. Everything is saved in the user's own browser.
