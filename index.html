@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<script>window.onerror=function(m,u,l){var d=document.createElement("div");d.style.cssText="background:#fde8e8;color:#8b1e2d;padding:8px 12px;font:14px sans-serif;direction:ltr;text-align:left;position:relative;z-index:99";d.textContent="Error: "+m+" (line "+l+")";var a=function(){document.body.insertBefore(d,document.body.firstChild)};if(document.body)a();else document.addEventListener("DOMContentLoaded",a)}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>طلبہ کارڈ ساز</title>
+<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('idc.theme'))||'light'}catch(e){document.documentElement.dataset.theme='light'}</script>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#8b1e2d">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Katibeh&family=Amiri:wght@400;700&display=swap">
+<style>
+:root{--bg:#eef1f7;--sf:#fff;--in:#f5f7fc;--ink:#1b2347;--mu:#5d6685;--ln:#d5daea;--ac:#8b1e2d;--bl:#2f8fd5;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12162a;--sf:#1c2140;--in:#141836;--ink:#eef0fa;--mu:#a1a9c9;--ln:#333a63;--ac:#d4506a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12162a;--sf:#1c2140;--in:#141836;--ink:#eef0fa;--mu:#a1a9c9;--ln:#333a63;--ac:#d4506a;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.8 'Noto Naskh Arabic','Segoe UI',Tahoma,serif}
+.wrap{max-width:680px;margin:0 auto;padding:12px 16px 96px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+h1{font-size:1.45rem;margin:0;line-height:1.6}
+.mu{color:var(--mu);margin:0}
+.view{display:none}.view.on{display:block}
+.box{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:14px;margin:12px 0}
+h2{font-size:1.05rem;margin:0 0 10px}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+.full{grid-column:1/-1}
+label.t{display:block;font-size:.92rem;color:var(--mu);line-height:1.5;margin-bottom:2px}
+input,select,textarea{width:100%;font:inherit;padding:7px 10px;border:1px solid var(--ln);border-radius:8px;background:var(--in);color:var(--ink)}
+textarea{resize:vertical;min-height:62px}
+input[readonly]{opacity:.75}
+input[type=color]{padding:2px;height:38px}
+input[type=range]{padding:0;height:26px}
+:focus-visible{outline:2px solid var(--bl);outline-offset:2px}
+.bt{font:inherit;font-weight:600;font-size:.95rem;padding:6px 14px;border-radius:9px;border:1px solid var(--ac);background:transparent;color:var(--ac);cursor:pointer;display:inline-block;line-height:1.7}
+.bt.p{background:var(--ac);color:#fff}
+.fb{position:relative;overflow:hidden}
+.fb input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0;padding:0;border:0}
+.fb:focus-within{outline:2px solid var(--bl);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.pp{display:flex;gap:14px;align-items:center}
+.pv{width:96px;height:120px;border:2px dashed var(--ln);border-radius:8px;display:grid;place-items:center;color:var(--mu);font-size:.85rem;overflow:hidden;flex:none;position:relative;text-align:center}
+.pv img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:none}
+.cap{font-size:.9rem;color:var(--mu);margin:10px auto 4px;max-width:440px}
+.it{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--ln)}
+.it:first-child{border-top:0}
+.it img{width:38px;height:48px;object-fit:cover;border-radius:5px;background:var(--in)}
+.it .tx{flex:1;min-width:0;line-height:1.5}
+.it small{display:block;color:var(--mu)}
+.it .bt{padding:2px 9px;font-size:.85rem}
+.nv{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--sf);border-top:1px solid var(--ln);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+.nv button{flex:1;font:inherit;font-size:.92rem;font-weight:600;padding:5px 2px;border:0;border-radius:9px;background:transparent;color:var(--mu);cursor:pointer;line-height:1.6}
+.nv button.on{background:var(--ac);color:#fff}
+#tt{position:fixed;left:50%;bottom:calc(74px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:7px 16px;border-radius:20px;opacity:0;pointer-events:none;transition:opacity .2s;font-size:.92rem;z-index:12;max-width:92vw;text-align:center}
+#tt.on{opacity:1}
+.md{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;overflow:auto}
+.md video{max-width:100%;max-height:60vh;border-radius:10px;background:#000}
+.md .box{width:100%;max-width:360px;margin:0}
+#lc{width:220px;height:220px;display:block;margin:0 auto 8px;border:1px solid var(--ln);border-radius:8px}
+.dp{display:flex;gap:6px;position:sticky;top:0;z-index:4;background:var(--bg);padding:6px 0;border-bottom:1px solid var(--ln)}
+.dp .cw{flex:1;min-width:0;max-width:none;margin:0}
+.sw{width:34px;height:34px;border-radius:50%;border:3px solid;padding:0;cursor:pointer}
+@media (max-width:480px){.g{grid-template-columns:1fr}.g.keep{grid-template-columns:1fr 1fr}}
+
+.cw{container-type:inline-size;width:100%;max-width:440px;margin:0 auto 8px}
+.card{position:relative;width:100%;aspect-ratio:85.6/54;border-radius:3.5cqw;overflow:hidden;background:var(--bg0,#f4f6fb);color:#1d2a5b;box-shadow:0 0 0 .3cqw #cfd5e6,0 2px 10px rgba(20,30,70,.18);font-family:'Noto Nastaliq Urdu','Jameel Noori Nastaleeq',serif}
+.front{direction:ltr}
+.en,.ur{position:absolute;top:3cqw;width:37cqw;height:16cqw;overflow:hidden;display:flex;align-items:center}
+.en{left:4.5cqw;font-family:'Times New Roman',Georgia,serif;color:var(--c1,#8b1e2d);line-height:1.25}
+.ur{right:4.5cqw;direction:rtl;text-align:right;color:var(--c1,#8b1e2d);line-height:1.75}
+.fit{width:100%;font-size:2.4cqw;overflow-wrap:anywhere}
+.en b{display:block;font-size:1.75em;font-weight:400}
+.en small{display:block;font-size:1em}
+.ur b{display:block;font-size:2.15em}
+.ur small{display:block;font-size:1.25em;color:#7b4a8a}
+.lg{position:absolute;left:50%;top:3cqw;width:13cqw;height:13cqw;transform:translateX(-50%)}
+.lg svg,.lg img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.lg img{display:none}
+.ph{position:absolute;left:5cqw;top:21cqw;width:26cqw;height:32cqw;background:#dde1ef;border-radius:1cqw;overflow:hidden;display:grid;place-items:center;font-size:4cqw;color:#7d86a8}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.sg{position:absolute;right:6cqw;bottom:12cqw;width:34cqw;border-top:.3cqw solid #1d2a5b;text-align:center;font-size:3.4cqw;line-height:1.9;direction:rtl}
+.ps-r .ph{left:auto;right:5cqw}.ps-r .sg{right:auto;left:6cqw}
+.bar{position:absolute;left:8cqw;right:8cqw;bottom:2.6cqw;height:6.4cqw;border-radius:3.2cqw;background:var(--c2,#2f8fd5);color:#fff;font:600 3.9cqw/6.4cqw 'Noto Naskh Arabic',sans-serif;text-align:center}
+.back{direction:rtl;display:flex;flex-direction:column;padding:2.5cqw 5.5cqw 11.5cqw}
+.back h3{margin:0;text-align:center;color:var(--c3,#d6304a);font-weight:700;font-size:5.4cqw;line-height:1.7}
+.rs{flex:1;display:flex;flex-direction:column;min-height:0}
+.rw{flex:1;display:flex;gap:4cqw;border-bottom:.3cqw solid #8a93b8;align-items:flex-end;min-height:0}
+.rw p{margin:0;flex:1;display:flex;gap:1.5cqw;align-items:flex-end;min-width:0;font-size:3.6cqw;line-height:1.5}
+.l{white-space:nowrap;color:#2b3563}
+.v{flex:1;text-align:center;font-weight:700;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-width:0}
+.n{direction:ltr}
+.sheet[data-side=front] .cw.b,.sheet[data-side=back] .cw.f{display:none}
+
+.cr{margin:18px 0 6px;padding:12px 8px;border-top:1px solid var(--ln);text-align:center;color:var(--mu);font-size:.92rem;line-height:2.2;font-family:'Noto Nastaliq Urdu','Noto Naskh Arabic',serif}
+.cr b{color:var(--ink);font-weight:700}
+.ur b{font-family:var(--uf,'Katibeh','Amiri','Noto Naskh Arabic',serif);font-size:2.45em;line-height:1.3;font-weight:400}
+@media print{
+ @page{size:A4;margin:12mm}
+ body{background:#fff}
+ .ui,.view:not(#v-preview){display:none!important}
+ .wrap{padding:0;max-width:none}
+ .sheet{display:flex;flex-direction:column;align-items:center;gap:8mm}
+ .cw{width:85.6mm;max-width:none;margin:0}
+ .card{box-shadow:none;outline:.2mm solid #999;break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<noscript><p style="padding:16px;font-size:18px">یہ ایپ چلانے کے لیے جاوا اسکرپٹ ضروری ہے۔ فائل کو Chrome یا Safari میں کھولیں۔</p></noscript>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="none" stroke="#8b1e2d" stroke-width="2"/><path d="M21 31V15l3-7 3 7v16z" fill="#c0392b"/><path d="M9 34q15-9 30 0v4q-15-9-30 0z" fill="#2f5d9e"/></symbol></svg>
+<div class="wrap">
+<header class="top ui"><h1>طلبہ کارڈ ساز</h1><button class="bt" id="th" type="button"></button></header>
+
+<section class="view on" id="v-entry">
+<div class="box"><h2>تصویر</h2>
+<div class="pp"><div class="pv"><span>تصویر نہیں</span><img class="pic" alt=""></div><div class="row" id="pk1" style="flex-direction:column;align-items:flex-start"></div></div>
+</div>
+<div class="box"><h2>طالب علم کی تفصیل</h2>
+<div class="g">
+<div><label class="t" for="n">نام</label><input id="n" autocomplete="off"></div>
+<div><label class="t" for="f">والد کا نام</label><input id="f" autocomplete="off"></div>
+<div><label class="t" for="nic">شناختی کارڈ نمبر</label><input id="nic" inputmode="numeric" placeholder="00000-0000000-0" dir="ltr" style="text-align:right"></div>
+<div><label class="t" for="dob">تاریخ پیدائش</label><input id="dob" type="date"></div>
+<div class="full"><label class="t" for="ad">پتہ</label><textarea id="ad"></textarea></div>
+<div><label class="t" for="reg">رجسٹریشن نمبر (خودکار)</label><input id="reg" readonly></div>
+<div><label class="t" for="cl">درجہ</label><select id="cl"><option value="">منتخب کریں</option><option>اعدادیہ اول</option><option>اعدادیہ دوم</option><option>اعدادیہ سوم</option><option>حفظ</option><option>ناظرہ</option><option>اولیٰ</option><option>ثانیہ</option><option>ثالثہ</option><option>رابعہ</option><option>خامسہ</option><option>سادسہ</option><option>سابعہ</option><option>دورہ حدیث</option></select></div>
+<div><label class="t" for="yr">تعلیمی سال</label><select id="yr"><option>1445</option><option>1446</option><option>1447</option><option selected>1448</option><option>1449</option><option>1450</option><option>1451</option><option>1452</option><option>1453</option><option>1454</option><option>1455</option></select></div>
+<div><label class="t" for="tp">نوعیت داخلہ</label><select id="tp"><option>رہائشی امدادی</option><option>رہائشی غیر امدادی</option><option>غیر رہائشی امدادی</option><option>غیر رہائشی غیر امدادی</option></select></div>
+</div>
+
+</div>
+<div class="row"><button class="bt p" id="bsv" type="button">محفوظ کریں</button><button class="bt" id="bpv" type="button">کارڈ دیکھیں</button><button class="bt" id="bnw" type="button">نیا طالب علم</button></div>
+</section>
+
+<section class="view" id="v-preview">
+<div class="box ui"><h2>پرنٹ اور PDF</h2>
+<label class="t" for="pside">کون سی طرف</label>
+<select id="pside"><option value="both">دونوں طرف (ایک صفحے پر)</option><option value="front">صرف سامنے کی طرف</option><option value="back">صرف پچھلی طرف</option></select>
+<div class="row" style="margin-top:10px"><button class="bt p" id="bpr" type="button">پرنٹ کریں</button><button class="bt" id="bpd" type="button">PDF ڈاؤن لوڈ کریں</button><button class="bt" id="bed" type="button">ترمیم کریں</button></div>
+<p class="mu" style="font-size:.85rem;margin-top:8px">پرنٹ کریں دبانے سے پرنٹ کی کھڑکی کھلتی ہے۔ وہاں منزل میں Save as PDF چن کر بھی PDF بن سکتی ہے۔</p>
+</div>
+<div class="sheet" id="sheet" data-side="both"></div>
+</section>
+
+<section class="view" id="v-saved">
+<div class="box"><h2>محفوظ ریکارڈ (<span id="cnt">0</span>)</h2>
+<input id="q" type="search" placeholder="نام یا رجسٹریشن نمبر سے تلاش" style="margin-bottom:8px">
+<div id="ls"></div></div>
+<div class="box"><h2>بیک اپ</h2><p class="mu" style="font-size:.88rem;margin-bottom:8px">ریکارڈ اور کارڈ کا ڈیزائن صرف اسی براؤزر میں رہتا ہے۔ اسے فائل میں محفوظ کریں، پھر کسی بھی فون یا کمپیوٹر پر بحال کریں۔</p>
+<div class="row"><button class="bt p" id="bkx" type="button">بیک اپ محفوظ کریں</button><label class="bt fb">بیک اپ بحال کریں<input type="file" id="bki" accept=".json,application/json"></label></div></div>
+</section>
+
+<section class="view" id="v-design">
+<div class="dp" id="dprev"></div>
+<div class="box"><h2>رنگ تھیم</h2><div class="row" id="pre"></div></div>
+<div class="box"><h2>ادارے کی معلومات</h2><div class="g">
+<div><label class="t">انگریزی نام</label><input data-d="en" dir="ltr"></div>
+<div><label class="t">اردو نام</label><input data-d="ur"></div>
+<div class="full"><label class="t">انگریزی پتہ</label><input data-d="ad" dir="ltr"></div>
+<div class="full"><label class="t">اردو پتہ</label><input data-d="adu"></div>
+<div class="full"><label class="t">فون نمبر</label><input data-d="ph" dir="ltr"></div>
+<div><label class="t">پچھلی طرف کا عنوان</label><input data-d="bt"></div>
+<div><label class="t">دستخط کا عنوان</label><input data-d="sl"></div>
+</div><p class="mu" style="font-size:.85rem;margin-top:8px">نام بہت لمبا ہو تو حروف خود چھوٹے ہو جاتے ہیں، لوگو اور تصویر اپنی جگہ رہتے ہیں۔</p>
+<label class="t" style="margin-top:12px">اردو نام کا فونٹ (ثلث انداز)</label>
+<div class="row"><label class="bt fb">اپنا ثلث فونٹ لگائیں<input type="file" id="ffi" accept=".ttf,.otf,.woff,.woff2"></label><button class="bt" id="frm" type="button">اصل فونٹ</button></div>
+<p class="mu" id="fst" style="font-size:.85rem;margin-top:4px"></p></div>
+<div class="box"><h2>رنگ اور ترتیب</h2><div class="g keep">
+<div><label class="t">نام کا رنگ</label><input type="color" data-d="c1"></div>
+<div><label class="t">نیچے کی پٹی کا رنگ</label><input type="color" data-d="c2"></div>
+<div><label class="t">پچھلے عنوان کا رنگ</label><input type="color" data-d="c3"></div>
+<div><label class="t">کارڈ کا پس منظر</label><input type="color" data-d="bg"></div>
+<div><label class="t">تصویر کی جگہ</label><select data-d="side"><option value="l">بائیں</option><option value="r">دائیں</option></select></div>
+<div><label class="t">دستخط کی لائن</label><select data-d="sig"><option value="1">دکھائیں</option><option value="0">چھپائیں</option></select></div>
+</div></div>
+<div class="box"><h2>لوگو</h2>
+<div class="pp"><div class="pv" style="height:96px"><span>لوگو نہیں</span><img id="lp" alt=""></div>
+<div><div class="row" id="pk2"></div><p class="mu" style="font-size:.88rem;margin-top:6px">لوگو کی تصویر قریب سے، سیدھی اور اچھی روشنی میں لیں۔ لوگو کارڈ کے اوپر بالکل درمیان میں لگتا ہے۔</p><button class="bt" id="lrm" type="button" style="margin-top:6px">لوگو ہٹائیں</button></div></div>
+</div>
+<button class="bt" id="rst" type="button">اصل ڈیزائن پر واپس</button>
+</section>
+<footer class="cr ui"><div><b>تیار کنندہ:</b> حمزہ مشتاق حسین بکالی</div><div><b>فاضل:</b> جامعۃ العلوم الاسلامیہ علامہ محمد یوسف بنوری ٹاؤن کراچی، پاکستان</div></footer>
+</div>
+
+<nav class="nv ui" id="nv"></nav>
+<div id="tt" class="ui" role="status"></div>
+<div id="cm" class="md ui" hidden><video id="vid" autoplay playsinline muted style="display:none"></video><p id="cmsg" style="color:#fff;text-align:center;margin:0;max-width:420px"></p><div class="row" id="cfb"></div><div class="row"><button class="bt p" id="snap" type="button">تصویر لیں</button><button class="bt" id="cls2" type="button" style="background:#fff">بند کریں</button></div></div>
+<div id="lm" class="md ui" hidden><div class="box"><h2>لوگو کی جگہ سیٹ کریں</h2>
+<canvas id="lc" width="220" height="220"></canvas>
+<label class="t">بڑا / چھوٹا</label><input type="range" id="lz" min="1" max="5" step="0.05" value="1">
+<label class="t">بائیں / دائیں</label><input type="range" id="lx" min="-1" max="1" step="0.02" value="0">
+<label class="t">اوپر / نیچے</label><input type="range" id="ly" min="-1" max="1" step="0.02" value="0">
+<label style="display:flex;gap:8px;align-items:center;margin:8px 0"><input type="checkbox" id="lb" checked style="width:auto"> سفید پس منظر ہٹائیں</label>
+<div class="row"><button class="bt p" id="lok" type="button">لوگو لگائیں</button><button class="bt" id="lno" type="button">منسوخ</button></div></div></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const K='idc.students',N='idc.next',DK='idc.design',T='idc.theme';
+const ld=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
+const DEF={en:'Jamia Al-Noor Islamia',ur:'جامعہ النور الاسلامیہ',ad:'Model Town, Karachi - 75000 Pakistan.',adu:'ماڈل ٹاؤن کراچی',ph:'021-00000000 - 00000000',bt:'کارڈ برائے طالب علم',sl:'دستخط سربراہ',c1:'#8b1e2d',c2:'#2f8fd5',c3:'#d6304a',bg:'#f4f6fb',side:'l',sig:1,logo:''};
+const SAMPLE={n:'محمد علی',f:'عبد الرحمن',nic:'12345-1234567-1',ad:'محلہ رحمت، کراچی',dob:'2010-05-12',cl:'دورہ حدیث',yr:'1448',tp:'رہائشی',reg:1};
+const F=['n','f','nic','ad','dob','cl','yr','tp'];
+let list=ld(K,[]),next=ld(N,1),dz=Object.assign({},DEF,ld(DK,{})),cur=null,curReg=0,photo='',stream=null,camCb=null,LI=null;
+const g=i=>$('#'+i).value.trim(),regNo=()=>cur?curReg:next,day=()=>new Date().toISOString().slice(0,10);
+const vt=y=>{const m=String(y||'').match(/\d{4}/);return 'یہ کارڈ یکم رمضان '+(m?(+m[0]+1):'۔۔۔')+' تک کار آمد ہے'};
+const fd=s=>{const m=/^(\d{4})-(\d\d)-(\d\d)$/.exec(s||'');return m?m[3]+'/'+m[2]+'/'+m[1]:''};
+const cv=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c};
+const imgOf=b=>new Promise((ok,no)=>{const u=URL.createObjectURL(b),i=new Image();i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u});
+const imgFrom=s=>new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=s});
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+function toast(m){const t=$('#tt');t.textContent=m;t.classList.add('on');clearTimeout(toast.k);toast.k=setTimeout(()=>t.classList.remove('on'),2600)}
+function show(e,src){if(src){e.src=src;e.style.display='block'}else{e.removeAttribute('src');e.style.display='none'}}
+function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+
+/* cards */
+const CARDS=`<div class="cw f"><div class="card front">
+<div class="en"><div class="fit"><b data-t="en"></b><small data-t="ad"></small></div></div>
+<div class="ur"><div class="fit"><b data-t="ur"></b><small data-t="adu"></small></div></div>
+<div class="lg"><svg><use href="#lg"/></svg><img alt=""></div>
+<div class="ph"><span>تصویر</span><img class="pic" alt=""></div>
+<div class="sg" data-t="sl"></div>
+<div class="bar n" data-t="ph"></div></div></div>
+<div class="cw b"><div class="card back"><h3 data-t="bt"></h3><div class="rs">
+<div class="rw"><p><span class="l">نام مع ولدیت</span><span class="v" data-v="bn"></span></p></div>
+<div class="rw"><p><span class="l">شناختی کارڈ نمبر</span><span class="v n" data-v="nic"></span></p></div>
+<div class="rw"><p><span class="l">پتہ</span><span class="v" data-v="ad"></span></p></div>
+<div class="rw"><p><span class="l">تاریخ پیدائش</span><span class="v n" data-v="dob"></span></p><p><span class="l">رجسٹریشن نمبر</span><span class="v n" data-v="reg"></span></p></div>
+<div class="rw"><p><span class="l">درجہ</span><span class="v" data-v="cl"></span></p><p><span class="l">تعلیمی سال</span><span class="v n" data-v="yr"></span></p></div>
+<div class="rw"><p><span class="l">نوعیت داخلہ</span><span class="v" data-v="tp"></span></p></div>
+</div><div class="bar" data-v="bar"></div></div></div>`;
+$('#sheet').innerHTML=CARDS;$('#dprev').innerHTML=CARDS;
+function fitAll(root){
+ root.querySelectorAll('.fit').forEach(f=>{const bx=f.parentNode;if(!bx.clientHeight)return;let k=1;f.style.fontSize='2.4cqw';
+  while(k>.4&&f.offsetHeight>bx.clientHeight){k-=.05;f.style.fontSize=(2.4*k)+'cqw'}})
+}
+function paintD(root){
+ const gv=k=>dz[k]==null?DEF[k]:dz[k];
+ root.querySelectorAll('[data-t]').forEach(e=>e.textContent=gv(e.dataset.t));
+ root.querySelectorAll('.card').forEach(c=>{const t=c.style;t.setProperty('--c1',gv('c1'));t.setProperty('--c2',gv('c2'));t.setProperty('--c3',gv('c3'));t.setProperty('--bg0',gv('bg'));c.classList.toggle('ps-r',dz.side==='r')});
+ root.querySelectorAll('.lg').forEach(l=>{show(l.querySelector('img'),dz.logo);l.querySelector('svg').style.display=dz.logo?'none':'block'});
+ root.querySelectorAll('.sg').forEach(e=>e.style.display=+dz.sig===0?'none':'');
+ root.querySelectorAll('.pic').forEach(e=>show(e,photo));
+ fitAll(root);
+}
+function paintS(root,s){
+ const m={bn:s.n&&s.f?s.n+' بن '+s.f:s.n||s.f||'',nic:s.nic,ad:s.ad,dob:fd(s.dob),reg:s.reg,cl:s.cl,yr:s.yr,tp:s.tp,bar:vt(s.yr)};
+ root.querySelectorAll('[data-v]').forEach(e=>e.textContent=m[e.dataset.v]==null?'':m[e.dataset.v]);
+}
+const cs=()=>({n:g('n'),f:g('f'),nic:g('nic'),ad:g('ad'),dob:g('dob'),cl:g('cl'),yr:g('yr'),tp:g('tp'),reg:regNo()});
+function render(){
+ $('#reg').value=regNo();
+ paintD($('#sheet'));paintS($('#sheet'),cs());
+ paintD($('#dprev'));paintS($('#dprev'),g('n')||g('f')?cs():SAMPLE);
+ $$('#v-entry .pic').forEach(e=>show(e,photo));show($('#lp'),dz.logo);
+}
+
+/* menu, theme */
+const V=[['entry','داخلہ'],['preview','کارڈ'],['saved','ریکارڈ'],['design','ڈیزائن']];
+V.forEach(([k,t])=>{const b=el('button','',t);b.type='button';b.dataset.k=k;b.onclick=()=>go(k);$('#nv').append(b)});
+function go(k){
+ if(!V.some(v=>v[0]===k))k='entry';
+ $$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+k));
+ $$('#nv button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+ try{history.replaceState(null,'','#'+k)}catch(e){}
+ window.scrollTo(0,0);setTimeout(()=>fitAll(document),30);
+}
+addEventListener('hashchange',()=>go(location.hash.slice(1)));
+function theme(t){document.documentElement.dataset.theme=t;sv(T,t);$('#th').textContent=t==='light'?'تاریک موڈ':'روشن موڈ'}
+$('#th').onclick=()=>theme(document.documentElement.dataset.theme==='light'?'dark':'light');
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>fitAll(document));
+if(document.fonts&&document.fonts.addEventListener)document.fonts.addEventListener('loadingdone',()=>fitAll(document));
+addEventListener('beforeprint',()=>fitAll(document));
+
+/* camera, gallery */
+async function live(cb){
+ camCb=cb;const m=$('#cmsg'),v=$('#vid'),f=$('#cfb'),sn=$('#snap');
+ f.textContent='';v.style.display='none';sn.style.display='none';m.textContent='کیمرہ کھل رہا ہے…';$('#cm').hidden=false;
+ let why='';
+ try{
+  const pp=document.permissionsPolicy||document.featurePolicy;
+  if(pp&&pp.allowsFeature&&!pp.allowsFeature('camera'))why='blocked';
+  else if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)why='nomedia';
+  else{try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false})}
+   catch(e){if(e&&(e.name==='NotAllowedError'||e.name==='SecurityError'))throw e;stream=await navigator.mediaDevices.getUserMedia({video:true,audio:false})}}
+ }catch(e){why=(e&&e.name)||'error'}
+ if(!why){v.srcObject=stream;v.style.display='block';try{await v.play()}catch(e){}m.textContent='';sn.style.display='';return}
+ const T2={blocked:'اس صفحے کو کیمرہ استعمال کرنے کی اجازت نہیں۔',nomedia:'اس براؤزر میں لائیو کیمرہ دستیاب نہیں۔',NotAllowedError:'کیمرے کی اجازت نہیں ملی۔ براؤزر کی سیٹنگ میں اجازت دیں۔',SecurityError:'کیمرے کی اجازت نہیں ملی۔',NotFoundError:'کوئی کیمرہ نہیں ملا۔',NotReadableError:'کیمرہ کسی اور ایپ میں استعمال ہو رہا ہے۔'};
+ m.textContent=(T2[why]||'کیمرہ نہیں کھل سکا ('+why+')۔')+' فون کا کیمرہ کھولنے کے لیے نیچے والا بٹن دبائیں۔';
+ f.append(mkIn('فون کا کیمرہ کھولیں',1,cb,1));
+}
+function shut(){if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;$('#vid').srcObject=null;$('#cm').hidden=true}
+$('#cls2').onclick=shut;
+$('#snap').onclick=()=>{const v=$('#vid');if(!v.videoWidth)return;const c=cv(v.videoWidth,v.videoHeight);c.getContext('2d').drawImage(v,0,0);c.toBlob(b=>{shut();camCb(b)},'image/jpeg',.9)};
+function mkIn(t,cap,cb,p){
+ const l=document.createElement('label');l.className='bt fb'+(p?' p':'');l.append(t);
+ const i=document.createElement('input');i.type='file';i.accept='image/*';if(cap)i.setAttribute('capture','environment');
+ i.onchange=()=>{if(i.files[0]){const f=i.files[0];shut();cb(f)}i.value=''};l.append(i);return l;
+}
+function pk(host,cb){
+ const b=el('button','bt p','لائیو کیمرہ');b.type='button';b.onclick=()=>live(cb);
+ host.append(b,mkIn('فون کا کیمرہ',1,cb),mkIn('گیلری سے چنیں',0,cb));
+}
+async function pic(file){
+ let im;try{im=await imgOf(file)}catch(e){toast('تصویر نہیں کھل سکی');return}
+ const W=240,H=300,c=cv(W,H),r=W/H;let sw=im.width,sh=im.height,sx=0,sy=0;
+ if(sw/sh>r){const w=sh*r;sx=(sw-w)/2;sw=w}else{const h=sw/r;sy=(sh-h)/2;sh=h}
+ c.getContext('2d').drawImage(im,sx,sy,sw,sh,0,0,W,H);photo=c.toDataURL('image/jpeg',.78);render();
+}
+
+/* logo placement */
+function cut(c){
+ const x=c.getContext('2d'),d=x.getImageData(0,0,c.width,c.height),p=d.data,w=c.width,h=c.height;
+ const at=(i,j)=>{const k=(j*w+i)*4;return[p[k],p[k+1],p[k+2]]},cs4=[at(0,0),at(w-1,0),at(0,h-1),at(w-1,h-1)];
+ const b=[0,1,2].map(i=>cs4.reduce((s,q)=>s+q[i],0)/4);
+ if(Math.min(...b)<190)return;
+ for(let k=0;k<p.length;k+=4){const dd=Math.abs(p[k]-b[0])+Math.abs(p[k+1]-b[1])+Math.abs(p[k+2]-b[2]);if(dd<60)p[k+3]=0;else if(dd<110)p[k+3]=(dd-60)*5}
+ x.putImageData(d,0,0);
+}
+function lpaint(c){
+ const W=c.width,x=c.getContext('2d');x.clearRect(0,0,W,W);x.fillStyle='#fff';x.fillRect(0,0,W,W);
+ const z=+$('#lz').value,s=Math.min(LI.width,LI.height)/z;
+ const sx=Math.max(0,Math.min(LI.width-s,LI.width/2+(+$('#lx').value)*LI.width/2-s/2)),sy=Math.max(0,Math.min(LI.height-s,LI.height/2+(+$('#ly').value)*LI.height/2-s/2));
+ x.drawImage(LI,sx,sy,s,s,0,0,W,W);
+}
+async function logoOpen(file){
+ try{LI=await imgOf(file)}catch(e){toast('تصویر نہیں کھل سکی');return}
+ $('#lz').value=1;$('#lx').value=0;$('#ly').value=0;$('#lm').hidden=false;lpaint($('#lc'));
+}
+['lz','lx','ly'].forEach(i=>$('#'+i).addEventListener('input',()=>lpaint($('#lc'))));
+$('#lno').onclick=()=>{$('#lm').hidden=true};
+$('#lok').onclick=()=>{const c=cv(200,200);lpaint(c);if($('#lb').checked)cut(c);dz.logo=c.toDataURL('image/png');$('#lm').hidden=true;saveD();render();toast('لوگو لگ گیا')};
+$('#lrm').onclick=()=>{dz.logo='';saveD();render()};
+
+/* design menu */
+function saveD(){if(!sv(DK,dz))toast('جگہ ختم ہو گئی، پرانے ریکارڈ حذف کریں')}
+function syncD(){$$('[data-d]').forEach(i=>i.value=dz[i.dataset.d])}
+$$('[data-d]').forEach(i=>{const k=i.dataset.d;i.addEventListener('input',()=>{dz[k]=k==='sig'?+i.value:i.value;saveD();render()})});
+const PRE=[['مرون','#8b1e2d','#2f8fd5','#d6304a','#f4f6fb'],['سبز','#17623f','#2e9e6a','#17623f','#f2faf5'],['نیلا','#1d3b7a','#1d3b7a','#c0392b','#f3f6fc'],['سنہری','#2b2b2b','#b8860b','#8b6508','#fbf8ef'],['جامنی','#5b2a86','#7e4bb5','#5b2a86','#f8f4fc']];
+PRE.forEach(([n,a,b,c,d])=>{const x=el('button','sw');x.type='button';x.title=n;x.style.background=d;x.style.borderColor=a;x.setAttribute('aria-label',n);x.onclick=()=>{Object.assign(dz,{c1:a,c2:b,c3:c,bg:d});syncD();saveD();render()};$('#pre').append(x)});
+$('#rst').onclick=()=>{const lo=dz.logo;dz=Object.assign({},DEF,{logo:lo});syncD();saveD();render();toast('اصل ڈیزائن بحال ہو گیا')};
+
+/* records */
+function draw(){
+ const b=$('#ls'),q=$('#q').value.trim();b.textContent='';$('#cnt').textContent=list.length;
+ const rows=list.filter(r=>!q||(r.n+' '+r.f+' '+r.reg).includes(q));
+ if(!rows.length){b.append(el('p','mu',list.length?'کوئی ریکارڈ نہیں ملا۔':'ابھی کوئی کارڈ محفوظ نہیں۔ داخلہ میں تفصیل بھر کر محفوظ کریں۔'));return}
+ rows.forEach(r=>{
+  const d=el('div','it'),im=new Image();im.alt='';if(r.photo)im.src=r.photo;
+  const t=el('div','tx',r.n+' بن '+r.f);t.append(el('small','','رجسٹریشن نمبر: '+r.reg+(r.cl?'، '+r.cl:'')));
+  const bt=(x,f)=>{const e=el('button','bt',x);e.type='button';e.onclick=()=>f(e);return e};
+  d.append(im,t,bt('کارڈ',()=>{load(r.id);go('preview')}),bt('ترمیم',()=>{load(r.id);go('entry')}),bt('حذف',e=>del(e,r.id)));b.append(d);
+ });
+}
+function setF(k,v){const e=$('#'+k);if(e.tagName==='SELECT'&&v&&![...e.options].some(o=>o.value===v)){const o=document.createElement('option');o.value=o.textContent=v;e.append(o)}e.value=v}
+function load(id){const r=list.find(x=>x.id===id);if(!r)return;F.forEach(k=>setF(k,r[k]||''));photo=r.photo||'';cur=r.id;curReg=r.reg;render()}
+function del(b,id){
+ if(b.dataset.a){list=list.filter(x=>x.id!==id);sv(K,list);if(cur===id){cur=null;curReg=0;render()}draw();return}
+ b.dataset.a=1;b.textContent='پکا حذف؟';setTimeout(()=>{delete b.dataset.a;b.textContent='حذف'},2500);
+}
+function save(){
+ if(!g('n')||!g('f')){toast('نام اور والد کا نام لازمی ہے');return false}
+ const r={id:cur||Date.now(),reg:regNo(),photo};F.forEach(k=>r[k]=g(k));
+ const old=list.slice(),oldNext=next,i=list.findIndex(x=>x.id===r.id);
+ if(i>=0)list[i]=r;else{list.unshift(r);next++}
+ if(!(sv(K,list)&&sv(N,next))){list=old;next=oldNext;toast('جگہ ختم ہو گئی، پرانے ریکارڈ حذف کریں');return false}
+ cur=r.id;curReg=r.reg;draw();render();toast('محفوظ ہو گیا');return true;
+}
+function fresh(){cur=null;curReg=0;photo='';['n','f','nic','ad','dob'].forEach(k=>$('#'+k).value='');render();window.scrollTo(0,0)}
+$('#bkx').onclick=()=>dl(new Blob([JSON.stringify({v:2,list,next,design:dz})],{type:'application/json'}),'id-card-backup-'+day()+'.json');
+$('#bki').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+ try{const d=JSON.parse(await f.text());if(!Array.isArray(d.list))throw 0;
+  const have=new Set(list.map(x=>x.id));d.list.forEach(r=>{if(!have.has(r.id))list.push(r)});list.sort((a,b)=>b.id-a.id);
+  next=Math.max(next,d.next||1,...list.map(r=>r.reg+1));if(d.design)Object.assign(dz,d.design);
+  if(!(sv(K,list)&&sv(N,next)&&sv(DK,dz)))throw 1;
+  syncD();draw();render();toast('بیک اپ بحال ہو گیا')}catch(x){toast('بیک اپ فائل درست نہیں')}};
+
+/* print and PDF */
+$('#pside').onchange=()=>{$('#sheet').dataset.side=$('#pside').value};
+async function doPrint(){
+ if(g('n')&&g('f'))save();
+ try{await document.fonts.ready}catch(e){}
+ render();fitAll(document);
+ setTimeout(()=>{try{window.print()}catch(e){toast('پرنٹ نہیں ہو سکا')}},150);
+}
+const UF=()=>cfont?"'IDCName','Katibeh','Amiri',serif":"'Katibeh','Amiri','Noto Naskh Arabic',serif";
+const NAS="'Noto Nastaliq Urdu','Jameel Noori Nastaleeq',serif",NSK="'Noto Naskh Arabic','Segoe UI',Tahoma,sans-serif",TNR="'Times New Roman',Georgia,serif";
+function wrap(x,t,w){
+ const o=[];let l='';
+ String(t||'').split(/\s+/).filter(Boolean).forEach(wd=>{
+  const tr=l?l+' '+wd:wd;
+  if(x.measureText(tr).width<=w)l=tr;
+  else{if(l)o.push(l);l='';if(x.measureText(wd).width<=w)l=wd;else{let c='';for(const ch of wd){if(x.measureText(c+ch).width>w){o.push(c);c=ch}else c+=ch}l=c}}
+ });
+ if(l)o.push(l);return o;
+}
+function block(x,bx,by,bw,bh,items,rtl,u){
+ let k=1,L=[],h=0;
+ for(;;){
+  x.direction=rtl?'rtl':'ltr';L=[];h=0;
+  for(const it of items){const fs=2.4*u*k*it.r;x.font='400 '+fs+'px '+it.f;wrap(x,it.t,bw).forEach(t=>{L.push({t,fs,c:it.c,f:it.f,lh:fs*it.lh});h+=fs*it.lh})}
+  if(h<=bh||k<=.4)break;k-=.05;
+ }
+ let y=by+(bh-Math.min(h,bh))/2;x.textBaseline='middle';x.textAlign=rtl?'right':'left';
+ L.forEach(l=>{x.font='400 '+l.fs+'px '+l.f;x.fillStyle=l.c;x.fillText(l.t,rtl?bx+bw:bx,y+l.lh/2);y+=l.lh});
+}
+function rrect(x,X,Y,w,h,r){x.beginPath();if(x.roundRect)x.roundRect(X,Y,w,h,r);else x.rect(X,Y,w,h)}
+function clip(x,t,w){t=String(t==null?'':t);if(x.measureText(t).width<=w)return t;while(t.length>1&&x.measureText(t+'…').width>w)t=t.slice(0,-1);return t+'…'}
+function pill(x,u,H,col,text){
+ rrect(x,8*u,H-2.6*u-6.4*u,84*u,6.4*u,3.2*u);x.fillStyle=col;x.fill();
+ x.fillStyle='#fff';x.font='600 '+3.9*u+'px '+NSK;x.textAlign='center';x.textBaseline='middle';x.direction='ltr';x.fillText(text,50*u,H-2.6*u-3.2*u);
+}
+async function cardCanvas(side,s){
+ const W=1011,H=Math.round(W*54/85.6),u=W/100,c=cv(W,H),x=c.getContext('2d');
+ x.fillStyle='#fff';x.fillRect(0,0,W,H);
+ rrect(x,0,0,W,H,3.5*u);x.fillStyle=dz.bg;x.fill();x.lineWidth=.3*u;x.strokeStyle='#cfd5e6';x.stroke();
+ x.save();rrect(x,0,0,W,H,3.5*u);x.clip();
+ if(side==='f'){
+  block(x,4.5*u,3*u,37*u,16*u,[{t:dz.en,r:1.75,f:TNR,c:dz.c1,lh:1.25},{t:dz.ad,r:1,f:TNR,c:dz.c1,lh:1.25}],false,u);
+  block(x,58.5*u,3*u,37*u,16*u,[{t:dz.ur,r:2.45,f:UF(),c:dz.c1,lh:1.3},{t:dz.adu,r:1.25,f:NAS,c:'#7b4a8a',lh:1.75}],true,u);
+  const L=13*u,lx=50*u-L/2,ly=3*u;
+  if(dz.logo){const im=await imgFrom(dz.logo),r=Math.min(L/im.width,L/im.height);x.drawImage(im,lx+(L-im.width*r)/2,ly+(L-im.height*r)/2,im.width*r,im.height*r)}
+  else{x.save();x.translate(lx,ly);x.scale(L/48,L/48);x.beginPath();x.arc(24,24,22,0,7);x.lineWidth=2;x.strokeStyle='#8b1e2d';x.stroke();x.fillStyle='#c0392b';x.fill(new Path2D('M21 31V15l3-7 3 7v16z'));x.fillStyle='#2f5d9e';x.fill(new Path2D('M9 34q15-9 30 0v4q-15-9-30 0z'));x.restore()}
+  const pw=26*u,ph=32*u,px=dz.side==='r'?W-5*u-pw:5*u,py=21*u;
+  rrect(x,px,py,pw,ph,u);x.fillStyle='#dde1ef';x.fill();
+  if(photo){const im=await imgFrom(photo),r=Math.max(pw/im.width,ph/im.height),w=im.width*r,h=im.height*r;x.save();rrect(x,px,py,pw,ph,u);x.clip();x.drawImage(im,px+(pw-w)/2,py+(ph-h)/2,w,h);x.restore()}
+  else{x.fillStyle='#7d86a8';x.font='400 '+4*u+'px '+NAS;x.textAlign='center';x.textBaseline='middle';x.direction='rtl';x.fillText('تصویر',px+pw/2,py+ph/2)}
+  if(+dz.sig!==0){const w=34*u,sx=dz.side==='r'?6*u:W-6*u-w,sy=H-18.5*u;x.strokeStyle='#1d2a5b';x.lineWidth=.3*u;x.beginPath();x.moveTo(sx,sy);x.lineTo(sx+w,sy);x.stroke();x.fillStyle='#1d2a5b';x.font='400 '+3.4*u+'px '+NAS;x.textAlign='center';x.textBaseline='middle';x.direction='rtl';x.fillText(dz.sl,sx+w/2,sy+3.4*u)}
+  pill(x,u,H,dz.c2,dz.ph);
+ }else{
+  x.fillStyle=dz.c3;x.font='700 '+5.4*u+'px '+NAS;x.textAlign='center';x.textBaseline='middle';x.direction='rtl';x.fillText(dz.bt,50*u,7.2*u);
+  const bn=s.n&&s.f?s.n+' بن '+s.f:s.n||s.f||'';
+  const rows=[[['نام مع ولدیت',bn]],[['شناختی کارڈ نمبر',s.nic,1]],[['پتہ',s.ad]],[['تاریخ پیدائش',fd(s.dob),1],['رجسٹریشن نمبر',s.reg,1]],[['درجہ',s.cl],['تعلیمی سال',s.yr,1]],[['نوعیت داخلہ',s.tp]]];
+  const top=11.7*u,rh=(H-11.5*u-top)/6,R=W-5.5*u,Lf=5.5*u;
+  rows.forEach((r,i)=>{
+   const yb=top+(i+1)*rh,ym=yb-rh*.36;
+   x.strokeStyle='#8a93b8';x.lineWidth=.3*u;x.beginPath();x.moveTo(Lf,yb);x.lineTo(R,yb);x.stroke();
+   r.forEach((cell,j)=>{
+    const w=r.length===1?R-Lf:(R-Lf-4*u)/2,right=r.length===1?R:(j?Lf+w:R),left=right-w;
+    x.textBaseline='middle';x.textAlign='right';x.direction='rtl';x.font='400 '+3.6*u+'px '+NAS;x.fillStyle='#2b3563';x.fillText(cell[0],right,ym);
+    const lw=x.measureText(cell[0]).width,vw=right-lw-1.5*u-left;
+    x.textAlign='center';x.direction=cell[2]?'ltr':'rtl';x.font='700 '+3.6*u+'px '+NAS;x.fillStyle='#1d2a5b';x.fillText(clip(x,cell[1],vw),left+vw/2,ym);
+   });
+  });
+  pill(x,u,H,dz.c2,vt(s.yr));
+ }
+ x.restore();return c;
+}
+function makePDF(jp,W,H){
+ const E=s=>new TextEncoder().encode(s),parts=[],xr=[];let off=0;
+ const add=b=>{parts.push(b);off+=b.length},obj=(n,b)=>{xr[n]=off;add(E(n+' 0 obj\n'));add(typeof b==='string'?E(b):b);add(E('\nendobj\n'))};
+ const PW=595.28,PH=841.89,cw=85.6*72/25.4,ch=54*72/25.4,gap=24,x0=(PW-cw)/2,ys=[];let y=PH-48-ch;
+ jp.forEach(()=>{ys.push(y);y-=ch+gap});
+ add(E('%PDF-1.4\n'));
+ obj(1,'<</Type/Catalog/Pages 2 0 R>>');obj(2,'<</Type/Pages/Kids[3 0 R]/Count 1>>');
+ obj(3,'<</Type/Page/Parent 2 0 R/MediaBox[0 0 '+PW+' '+PH+']/Resources<</XObject<<'+jp.map((_,i)=>'/I'+i+' '+(5+i)+' 0 R').join('')+'>>>>/Contents 4 0 R>>');
+ const st=jp.map((_,i)=>'q '+cw.toFixed(2)+' 0 0 '+ch.toFixed(2)+' '+x0.toFixed(2)+' '+ys[i].toFixed(2)+' cm /I'+i+' Do Q 0.6 G 0.4 w '+x0.toFixed(2)+' '+ys[i].toFixed(2)+' '+cw.toFixed(2)+' '+ch.toFixed(2)+' re S').join('\n');
+ obj(4,'<</Length '+st.length+'>>\nstream\n'+st+'\nendstream');
+ jp.forEach((b,i)=>{const h=E('<</Type/XObject/Subtype/Image/Width '+W+'/Height '+H+'/ColorSpace/DeviceRGB/BitsPerComponent 8/Filter/DCTDecode/Length '+b.length+'>>\nstream\n'),t=E('\nendstream'),a=new Uint8Array(h.length+b.length+t.length);a.set(h,0);a.set(b,h.length);a.set(t,h.length+b.length);obj(5+i,a)});
+ const n=5+jp.length,xo=off;let xs='xref\n0 '+n+'\n0000000000 65535 f \n';
+ for(let i=1;i<n;i++)xs+=String(xr[i]).padStart(10,'0')+' 00000 n \n';
+ add(E(xs+'trailer\n<</Size '+n+'/Root 1 0 R>>\nstartxref\n'+xo+'\n%%EOF'));
+ return new Blob(parts,{type:'application/pdf'});
+}
+async function doPDF(){
+ if(g('n')&&g('f'))save();
+ toast('PDF بن رہی ہے…');
+ try{
+  try{await Promise.all(["400 20px 'Noto Nastaliq Urdu'","700 20px 'Noto Nastaliq Urdu'","600 20px 'Noto Naskh Arabic'","400 20px 'Katibeh'","400 20px 'Amiri'"].concat(cfont?["400 20px 'IDCName'"]:[]).map(f=>document.fonts.load(f,'ابج')))}catch(e){}
+  const s=cs(),sd=$('#pside').value,cn=[];
+  if(sd!=='back')cn.push(await cardCanvas('f',s));
+  if(sd!=='front')cn.push(await cardCanvas('b',s));
+  const jp=cn.map(c=>Uint8Array.from(atob(c.toDataURL('image/jpeg',.95).split(',')[1]),ch=>ch.charCodeAt(0)));
+  dl(makePDF(jp,cn[0].width,cn[0].height),'id-card-'+(s.reg||'new')+'.pdf');toast('PDF محفوظ ہو گئی');
+ }catch(e){toast('PDF نہیں بن سکی۔ پرنٹ کریں دبا کر Save as PDF چنیں')}
+}
+
+/* wiring */
+F.forEach(k=>$('#'+k).addEventListener('input',render));
+$('#q').oninput=draw;$('#bsv').onclick=save;$('#bnw').onclick=fresh;
+$('#bpv').onclick=()=>go('preview');$('#bed').onclick=()=>go('entry');
+$('#bpr').onclick=doPrint;$('#bpd').onclick=doPDF;
+pk($('#pk1'),pic);pk($('#pk2'),logoOpen);
+theme(document.documentElement.dataset.theme||'light');
+let cfont=ld('idc.font',null);
+async function applyFont(){
+ const r=document.documentElement.style;
+ if(cfont){try{const f=new FontFace('IDCName','url('+cfont+')');await f.load();document.fonts.add(f);r.setProperty('--uf',"'IDCName','Katibeh','Amiri','Noto Naskh Arabic',serif");$('#fst').textContent='آپ کا اپنا فونٹ استعمال ہو رہا ہے۔'}catch(e){cfont=null;toast('فونٹ فائل نہیں کھل سکی')}}
+ if(!cfont){r.removeProperty('--uf');$('#fst').textContent='ثلث انداز کا فونٹ استعمال ہو رہا ہے۔ اصل ثلث فونٹ کی فائل ہو تو یہاں لگائیں۔'}
+ render();
+}
+$('#ffi').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;if(f.size>1.5e6){toast('فونٹ فائل بہت بڑی ہے (زیادہ سے زیادہ 1.5 MB)');return}const rd=new FileReader();rd.onload=async()=>{cfont=rd.result;if(!sv('idc.font',cfont))toast('جگہ ختم ہو گئی');await applyFont()};rd.readAsDataURL(f)};
+$('#frm').onclick=()=>{cfont=null;try{localStorage.removeItem('idc.font')}catch(e){}applyFont()};
+syncD();draw();render();go(location.hash.slice(1));applyFont();
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
